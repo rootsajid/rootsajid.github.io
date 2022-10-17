@@ -1,0 +1,27 @@
+Add “Trick.htb” in the hosts file.
+
+Port 53 Recon
+
+We got another subdomain: preprod-payroll.trick.htb
+
+Then we tried Simple SQL injection on Page: ‘1 or 1=1– – and we got in!
+
+Here we got LFI on the Endpoint page
+
+Here we got another website: preprod-marketing.trick.htb
+
+So here we go with the /etc/passwd file
+
+Let’s check for user Michael’s ssh keys and flag!
+
+User MICHAEL’s access
+
+We can privesc through fail2ban as we can restart the service as root.
+
+Reference: https://youssef-ichioui.medium.com/abusing-fail2ban-misconfiguration-to-escalate-privileges-on-linux-826ad0cdafb7
+
+We are in a security group and users from this group can make changes there.
+
+So we cannot directly write into the file but we can delete that and place our file there!
+
+
