@@ -163,6 +163,8 @@
       grid-template-columns: 1fr 1fr; 
       gap: 14px; 
       margin-top: 20px; 
+      position: relative;
+      min-height: 64px;
     }
     .no-btn {
       background: rgba(255,255,255,0.45);
@@ -172,6 +174,10 @@
       min-height: 54px;
       padding: 0;
       transition: all 0.15s;
+      width: calc(50% - 7px);
+      position: absolute;
+      right: 0;
+      top: 0;
     }
     .no-btn:active {
       transform: none !important;
@@ -365,13 +371,12 @@
 
     // Fixed No Button
     function moveNo() {
-      const phoneRect = phone.getBoundingClientRect();
+      const area = document.querySelector('.yes-no').getBoundingClientRect();
       const btnRect = noBtn.getBoundingClientRect();
-      const maxX = phoneRect.width - btnRect.width - 50;
-      const maxY = phoneRect.height - btnRect.height - 140;
-      
-      const x = Math.random() * maxX + 25;
-      const y = Math.random() * maxY + 120;
+      const maxX = Math.max(0, area.width - btnRect.width);
+      const maxY = Math.max(0, area.height - btnRect.height);
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
 
       noBtn.style.position = 'absolute';
       noBtn.style.left = `${x}px`;
