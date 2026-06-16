@@ -162,9 +162,10 @@
       display: grid; 
       grid-template-columns: 1fr 1fr; 
       gap: 14px; 
-      margin-top: 20px; 
+      margin-top: 26px; 
       position: relative;
-      min-height: 64px;
+      min-height: 220px;
+      align-items: start;
     }
     .no-btn {
       background: rgba(255,255,255,0.45);
@@ -176,7 +177,7 @@
       transition: all 0.15s;
       width: calc(50% - 7px);
       position: absolute;
-      right: 0;
+      left: 0;
       top: 0;
       z-index: 5;
     }
@@ -373,29 +374,29 @@
     // Fixed No Button
     function moveNo() {
       const btnRect = noBtn.getBoundingClientRect();
-      const screenRect = document.querySelector('.screen[data-screen="4"]').getBoundingClientRect();
-      const pad = 24;
-      const safeTop = screenRect.top + 120;
-      const safeBottom = screenRect.bottom - 170;
-      const safeLeft = screenRect.left + pad;
-      const safeRight = screenRect.right - btnRect.width - pad;
+      const areaRect = document.querySelector('.yes-no').getBoundingClientRect();
+      const pad = 10;
+      const safeTop = 0;
+      const safeBottom = Math.max(0, areaRect.height - btnRect.height - pad);
+      const safeLeft = 0;
+      const safeRight = Math.max(0, areaRect.width - btnRect.width - pad);
 
       const spots = [
-        [safeLeft, safeTop + 10],
-        [safeRight, safeTop + 20],
-        [safeLeft + 20, safeBottom],
-        [safeRight - 10, safeBottom - 10],
-        [screenRect.left + 60, screenRect.top + 260],
-        [screenRect.right - btnRect.width - 60, screenRect.top + 340],
-        [screenRect.left + 90, screenRect.top + 430],
-        [screenRect.right - btnRect.width - 90, screenRect.top + 520]
+        [safeLeft + 10, safeTop + 10],
+        [safeRight, safeTop + 14],
+        [safeLeft + 18, safeBottom * 0.35],
+        [safeRight - 8, safeBottom * 0.42],
+        [safeLeft + 30, safeBottom * 0.72],
+        [safeRight - 30, safeBottom * 0.75],
+        [safeLeft + 62, safeBottom - 4],
+        [safeRight - 62, safeBottom - 10]
       ];
 
       const [xRaw, yRaw] = spots[Math.floor(Math.random() * spots.length)];
       const x = Math.max(safeLeft, Math.min(safeRight, xRaw));
       const y = Math.max(safeTop, Math.min(safeBottom, yRaw));
 
-      noBtn.style.position = 'fixed';
+      noBtn.style.position = 'absolute';
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
       noBtn.style.width = `${btnRect.width}px`;
