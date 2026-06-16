@@ -178,6 +178,7 @@
       position: absolute;
       right: 0;
       top: 0;
+      z-index: 5;
     }
     .no-btn:active {
       transform: none !important;
@@ -371,17 +372,35 @@
 
     // Fixed No Button
     function moveNo() {
-      const area = document.querySelector('.yes-no').getBoundingClientRect();
       const btnRect = noBtn.getBoundingClientRect();
-      const maxX = Math.max(0, area.width - btnRect.width);
-      const maxY = Math.max(0, area.height - btnRect.height);
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+      const screenRect = document.querySelector('.screen[data-screen="4"]').getBoundingClientRect();
+      const pad = 24;
+      const safeTop = screenRect.top + 120;
+      const safeBottom = screenRect.bottom - 170;
+      const safeLeft = screenRect.left + pad;
+      const safeRight = screenRect.right - btnRect.width - pad;
 
-      noBtn.style.position = 'absolute';
+      const spots = [
+        [safeLeft, safeTop + 10],
+        [safeRight, safeTop + 20],
+        [safeLeft + 20, safeBottom],
+        [safeRight - 10, safeBottom - 10],
+        [screenRect.left + 60, screenRect.top + 260],
+        [screenRect.right - btnRect.width - 60, screenRect.top + 340],
+        [screenRect.left + 90, screenRect.top + 430],
+        [screenRect.right - btnRect.width - 90, screenRect.top + 520]
+      ];
+
+      const [xRaw, yRaw] = spots[Math.floor(Math.random() * spots.length)];
+      const x = Math.max(safeLeft, Math.min(safeRight, xRaw));
+      const y = Math.max(safeTop, Math.min(safeBottom, yRaw));
+
+      noBtn.style.position = 'fixed';
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
-      noBtn.style.transform = `rotate(${Math.random()*20 - 10}deg)`;
+      noBtn.style.width = `${btnRect.width}px`;
+      noBtn.style.height = `${btnRect.height}px`;
+      noBtn.style.transform = `rotate(${Math.random()*14 - 7}deg)`;
     }
 
     noBtn.addEventListener('click', moveNo);
