@@ -1,64 +1,439 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sajid's Webpage</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>For My Love ❤️</title>
+  <style>
+    :root {
+      --pink-1: #fff2fa;
+      --pink-2: #ffd2e8;
+      --pink-3: #ff9ed0;
+      --pink-4: #e85fa1;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      color: #6d2a4e;
+    }
+
+    body {
+      background: linear-gradient(160deg, var(--pink-1), var(--pink-2) 35%, var(--pink-3) 70%, var(--pink-4));
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.9), transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(255, 180, 220, 0.85), transparent 45%),
+                  radial-gradient(circle at 40% 80%, rgba(255, 220, 240, 0.7), transparent 40%);
+      animation: glowMove 18s ease-in-out infinite;
+      opacity: 0.75;
+      z-index: -1;
+    }
+
+    @keyframes glowMove {
+      0%,100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(25px, -30px) scale(1.05); }
+    }
+
+    .phone {
+      position: relative;
+      width: min(100vw, 430px);
+      height: 100vh;
+      margin: 0 auto;
+      overflow: hidden;
+      background: linear-gradient(160deg, #fff4fa, #ffd7ea 35%, #ffb4d9 70%, #ff8ec6);
+      box-shadow: 0 0 0 12px #fff, 0 0 0 14px #ff9ed0, 0 30px 80px rgba(178, 30, 102, 0.3);
+      border-radius: 48px;
+      isolation: isolate;
+    }
+
+    .floaty {
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+      opacity: 0.55;
+      animation: drift 14s ease-in-out infinite;
+    }
+    .floaty.one { width: 150px; height: 150px; left: -40px; top: -30px; background: radial-gradient(circle, #fff, transparent); }
+    .floaty.two { width: 200px; height: 200px; right: -70px; top: 12%; background: radial-gradient(circle, #ffe4f0, transparent); animation-delay: -5s; }
+    .floaty.three { width: 140px; height: 140px; left: -25px; bottom: -50px; background: radial-gradient(circle, #ffc9e8, transparent); animation-delay: -9s; }
+
+    @keyframes drift {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(10deg); }
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 20px 18px 90px;
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+    .screen.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .pill {
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #8a3f5f;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-card, .scene-card, .proposal-hero {
+      border-radius: 32px;
+      background: rgba(255,255,255,0.42);
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 20px 50px rgba(178, 30, 102, 0.2);
+      backdrop-filter: blur(16px);
+      padding: 28px 20px;
+    }
+
+    .title {
+      font-size: clamp(34px, 8vw, 48px);
+      font-family: Georgia, serif;
+      color: #801b4d;
+      margin: 0;
+      letter-spacing: -1.2px;
+    }
+
+    .gift-row, .emoji-cloud {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+
+    .gift, .chip {
+      width: 62px;
+      height: 62px;
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+      background: rgba(255,255,255,0.45);
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.4);
+      box-shadow: 0 8px 20px rgba(178, 30, 102, 0.15);
+      animation: bob 2.8s ease-in-out infinite;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(8deg); }
+    }
+
+    .button {
+      width: 100%;
+      min-height: 64px;
+      border: none;
+      border-radius: 22px;
+      font-weight: 800;
+      font-size: 19px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #fff8fc, #ffd6ea 40%, #ff7eb8);
+      color: #7e1748;
+      box-shadow: 0 15px 30px rgba(210, 61, 124, 0.28);
+      transition: all 0.2s;
+    }
+    .button:active { transform: scale(0.96); }
+
+    .yes-no { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 14px; 
+      margin-top: 20px; 
+    }
+    .no-btn {
+      background: rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #7f3858;
+      font-size: 17px;
+      min-height: 54px;
+      padding: 0;
+      transition: all 0.15s;
+    }
+    .no-btn:active {
+      transform: none !important;
+    }
+
+    /* Gallery */
+    .gallery {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(178, 30, 102, 0.25);
+      position: relative;
+    }
+
+    .gallery-screen {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 14px;
+      padding-top: 4px;
+    }
+
+    .gallery-container {
+      display: flex;
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .gallery-slide {
+      min-width: 100%;
+      height: min(62vh, 470px);
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 15px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: #ff9ed0;
+      border-radius: 50%;
+      opacity: 0.4;
+      transition: all 0.3s;
+    }
+    .dot.active {
+      opacity: 1;
+      transform: scale(1.3);
+    }
+
+    #confetti { position: absolute; inset: 0; pointer-events: none; z-index: 100; }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Sajid's Webpage</h1>
-    </header>
-    
-    <nav>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-    
-    <section id="about">
-        <h2>About Sajid</h2>
-        <p>This is a brief introduction about Sajid.</p>
-    </section>
-    
-    <section id="portfolio">
-        <h2>Portfolio</h2>
-        <div class="portfolio-item">
-            <img src="portfolio-item-1.jpg" alt="Portfolio Item 1">
-            <h3>Project 1</h3>
-            <p>Description of Project 1.</p>
-        </div>
-        <div class="portfolio-item">
-            <img src="portfolio-item-2.jpg" alt="Portfolio Item 2">
-            <h3>Project 2</h3>
-            <p>Description of Project 2.</p>
-        </div>
-        <!-- Add more portfolio items as needed -->
-    </section>
-    
-    <section id="contact">
-        <h2>Contact Sajid</h2>
-        <form id="contact-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
-            
-            <button type="submit">Send</button>
-        </form>
-    </section>
-    
-    <footer>
-        <p>&copy; 2023 Sajid's Webpage</p>
-    </footer>
+  <main class="phone">
+    <span class="floaty one"></span>
+    <span class="floaty two"></span>
+    <span class="floaty three"></span>
 
-    <script src="script.js"></script>
+    <!-- Screen 1 -->
+    <section class="screen active" data-screen="1">
+      <div><span class="pill">My Forever Love</span></div>
+      <div style="text-align:center; margin-top:50px;">
+        <div class="hero-card">
+          <h1 class="title">To My Love ❤️</h1>
+          <p style="margin:18px 0 0; font-size:15.5px; line-height:1.75; color:#7b3558;">
+            I made this little world just for you...<br>because you deserve the most beautiful things.
+          </p>
+          <div class="gift-row">
+            <div class="gift">🧸</div>
+            <div class="gift">🐼</div>
+            <div class="gift">💖</div>
+            <div class="gift">🌷</div>
+          </div>
+        </div>
+      </div>
+      <button class="button" data-next="2" style="margin-top:30px;">Next →</button>
+    </section>
+
+    <!-- Screen 2 -->
+    <section class="screen" data-screen="2">
+      <div><span class="pill">My Love</span></div>
+      <div style="text-align:center; padding-top:40px;">
+        <div class="scene-card">
+          <p style="font-size:15px; letter-spacing:1.5px; color:#9a4a6f; margin-bottom:12px;">MY HEART</p>
+          <p style="font-size:17px; line-height:1.8; color:#6b2147;">
+            Your smile is my favorite place<br>and your voice feels like home.
+          </p>
+          <div class="emoji-cloud">
+            <span class="chip">🧸</span>
+            <span class="chip">🐼</span>
+            <span class="chip">💗</span>
+            <span class="chip">🌸</span>
+            <span class="chip">✨</span>
+          </div>
+        </div>
+      </div>
+      <button class="button" data-next="3" style="margin-top:30px;">Next →</button>
+    </section>
+
+    <!-- Screen 3 -->
+    <section class="screen" data-screen="3">
+      <div><span class="pill">My Love</span></div>
+      <div style="text-align:center; padding-top:40px;">
+        <div class="proposal-hero" style="min-height:300px;">
+          <div style="font-size:82px; animation: bob 2.2s infinite;">❤️</div>
+          <h2 style="font-family:Georgia; font-size:30px; color:#801b4d; margin:15px 0;">A Small Question</h2>
+          <p style="color:#7c3657; font-size:16px;">Will you be the sweetest part of my life?</p>
+        </div>
+      </div>
+      <button class="button" data-next="4" style="margin-top:20px;">Next →</button>
+    </section>
+
+    <!-- Proposal Screen -->
+    <section class="screen" data-screen="4">
+      <div><span class="pill">Final Question</span></div>
+      <div style="text-align:center; padding-top:30px;">
+        <div class="proposal-hero" style="min-height:380px;">
+          <div style="font-size:92px; animation: bob 1.4s infinite;">❤️</div>
+          <h2 style="font-family:Georgia; font-size:32px; color:#801b4d; margin:20px 0 8px;">Will you be mine forever?</h2>
+          <p style="color:#7c3657; font-size:16px;">Meri duniya tumhare bina adhuri hai...</p>
+        </div>
+      </div>
+
+      <div class="yes-no">
+        <button class="button" id="yesBtn">Yes, Forever ❤️</button>
+        <button class="button no-btn" id="noBtn">No</button>
+      </div>
+    </section>
+
+    <!-- Gallery Screen -->
+    <section class="screen" data-screen="5">
+      <div class="gallery-screen">
+        <div class="gallery">
+          <div class="gallery-container" id="galleryContainer">
+            <div class="gallery-slide"><img src="file:///c:/Users/Soyab%20Mohammed/Downloads/cfbe21de-7fa2-4078-a745-e0f4e1541ae0.webp" alt="romantic cherry blossom couple" /></div>
+            <div class="gallery-slide"><img src="file:///c:/Users/Soyab%20Mohammed/Downloads/7b620eed62cff787f52763695da7edcd.jpg" alt="anime couple close-up" /></div>
+            <div class="gallery-slide"><img src="file:///c:/Users/Soyab%20Mohammed/Downloads/82f77c2417602f9ef4b407f30ddc0fcc.jpg" alt="cute couple gaming" /></div>
+            <div class="gallery-slide"><img src="file:///c:/Users/Soyab%20Mohammed/Downloads/anime-couple-standing-and-holding-arms-illustration-couple-with-white-background-cute-couple-clip-art-korean-couple-looking-happy-and-smiling-vector.jpg" alt="cute illustrated couple" /></div>
+            <div class="gallery-slide"><img src="file:///c:/Users/Soyab%20Mohammed/Downloads/cherry-blossom-love-stockcake.webp" alt="cherry blossom love" /></div>
+            <div class="gallery-slide"><img src="file:///c:/Users/Soyab%20Mohammed/Downloads/9f6e562e0f7025a783c410b51383740c.jpg" alt="romantic embrace" /></div>
+            <div class="gallery-slide"><img src="file:///c:/Users/Soyab%20Mohammed/Downloads/178ee19a93c72d511c7eaa1234e825a0.jpg" alt="kissing couple" /></div>
+          </div>
+        </div>
+        <div class="gallery-dots" id="dots"></div>
+
+        <p style="margin:4px 0 0; font-family:Georgia, serif; color:#ff5e9e; font-size:clamp(20px, 5vw, 26px); text-align:center; line-height:1.25;">
+          I love you so much, my love ❤️
+        </p>
+      </div>
+    </section>
+
+    <canvas id="confetti" width="430" height="800"></canvas>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script>
+    const screens = document.querySelectorAll('.screen');
+    const phone = document.querySelector('.phone');
+
+    function showScreen(n) {
+      screens.forEach(s => s.classList.toggle('active', +s.dataset.screen === n));
+    }
+
+    document.querySelectorAll('[data-next]').forEach(btn => {
+      btn.addEventListener('click', () => showScreen(+btn.dataset.next));
+    });
+
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+
+    yesBtn.addEventListener('click', () => {
+      confetti({ particleCount: 220, spread: 90, origin: { y: 0.6 } });
+      setTimeout(() => showScreen(5), 700);
+    });
+
+    // Fixed No Button
+    function moveNo() {
+      const phoneRect = phone.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+      const maxX = phoneRect.width - btnRect.width - 50;
+      const maxY = phoneRect.height - btnRect.height - 140;
+      
+      const x = Math.random() * maxX + 25;
+      const y = Math.random() * maxY + 120;
+
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+      noBtn.style.transform = `rotate(${Math.random()*20 - 10}deg)`;
+    }
+
+    noBtn.addEventListener('click', moveNo);
+    noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveNo(); });
+
+    // Instagram-like Gallery
+    const container = document.getElementById('galleryContainer');
+    const dotsContainer = document.getElementById('dots');
+    let currentIndex = 0;
+    const totalSlides = 7;
+
+    // Create dots
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dotsContainer.appendChild(dot);
+    }
+
+    const dots = document.querySelectorAll('.dot');
+
+    function updateGallery() {
+      container.style.transform = `translateX(-${currentIndex * 100}%)`;
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+    }
+
+    // Swipe functionality
+    let startX = 0;
+    let isDragging = false;
+
+    container.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
+
+    container.addEventListener('touchend', e => {
+      if (!isDragging) return;
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+
+      if (diff > 50 && currentIndex < totalSlides - 1) currentIndex++;
+      if (diff < -50 && currentIndex > 0) currentIndex--;
+
+      updateGallery();
+      isDragging = false;
+    });
+
+    // Mouse drag support (for desktop)
+    container.addEventListener('mousedown', e => {
+      startX = e.clientX;
+      isDragging = true;
+    });
+
+    window.addEventListener('mouseup', () => isDragging = false);
+    container.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+    });
+  </script>
 </body>
 </html>
