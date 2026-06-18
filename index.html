@@ -175,7 +175,8 @@
       min-height: 54px;
       padding: 0;
       transition: all 0.15s;
-      width: calc(50% - 7px);
+      width: 120px !important;
+      height: 54px !important;
       position: absolute;
       left: 0;
       top: 0;
@@ -398,8 +399,8 @@
       noBtn.style.position = 'absolute';
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
-      noBtn.style.width = `${btnRect.width}px`;
-      noBtn.style.height = `${btnRect.height}px`;
+     // noBtn.style.width = `${btnRect.width}px`;
+     // noBtn.style.height = `${btnRect.height}px`;
       noBtn.style.transform = `rotate(${Math.random()*14 - 7}deg)`;
     }
 
